@@ -13,8 +13,8 @@ export class HomeComponent {
   widgets: Widget[];
 
   reCalculateTotal(mode: string, widgets: Widget[], widget: Widget) {
-    this.updateWidgets(mode, widgets, widget);
-    this.getTotalPrice(widgets);
+    this.widgets = this.updateWidgets(mode, widgets, widget);
+    this.price = this.getTotalPrice(widgets);
   }
  
   updateWidgets(mode: string, widgets: Widget[], widget: Widget) {
@@ -41,8 +41,7 @@ export class HomeComponent {
   }
 
   deleteWidget(widgets: Widget[], widget: Widget) {
-    widgets = widgets.filter(_widget => widget.id !== _widget.id);
-    return widgets;
+    return widgets.filter(_widget => widget.id !== _widget.id);
   }
 
   getTotalPrice(widgets: Widget[]) {
