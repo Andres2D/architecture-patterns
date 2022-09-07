@@ -63,7 +63,7 @@ describe('HomeComponent', () => {
     let widgets = [];
     const widget = {
       id: null,
-      name: 'new item',
+      title: 'new item',
       description: 'new item',
       price: 100,
     };
@@ -76,12 +76,12 @@ describe('HomeComponent', () => {
   });
 
   it('should update a widget on updateWidget', () => {
-    let widgets = [
-      { id: 100, name: 'new item', description: 'new item', price: 100 },
+    let widgets: Widget[] = [
+      { id: 100, title: 'new item', description: 'new item', price: 100 },
     ];
     const widget = {
       id: 100,
-      name: 'UPDATED',
+      title: 'UPDATED',
       description: 'WIDGET',
       price: 100,
     };
@@ -92,12 +92,12 @@ describe('HomeComponent', () => {
   });
 
   it('should delete a widget on deleteWidget', () => {
-    let widgets = [
-      { id: 100, name: 'new item', description: 'new item', price: 100 },
+    let widgets: Widget[] = [
+      { id: 100, title: 'new item', description: 'new item', price: 100 },
     ];
     const widget = {
       id: 100,
-      name: 'new item',
+      title: 'new item',
       description: 'new item',
       price: 100,
     };
