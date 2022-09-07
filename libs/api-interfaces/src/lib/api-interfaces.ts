@@ -8,11 +8,11 @@ export interface Action {
 }
 
 export interface BaseEntity {
-  id: string | null;
+  id: string | number | null;
 }
 
 export interface Widget extends BaseEntity {
-  title: string;
   description: string;
   price: number;
+  title: string;
 }

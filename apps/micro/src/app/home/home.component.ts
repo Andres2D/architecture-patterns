@@ -16,7 +16,7 @@ export class HomeComponent {
     this.widgets = this.updateWidgets(mode, widgets, widget);
     this.price = this.getTotalPrice(widgets);
   }
-
+ 
   updateWidgets(mode: string, widgets: Widget[], widget: Widget) {
     switch (mode) {
       case 'create':
@@ -30,22 +30,21 @@ export class HomeComponent {
     }
   }
 
-  getTotalPrice(widgets) {
-    return widgets.reduce((acc, curr) => acc + curr.price, 0)
+  updateWidget(widgets: Widget[], widget: Widget) {
+    return widgets.map(_widget => widget.id === _widget.id
+      ? Object.assign({}, widget) : _widget);
   }
 
-  addWidget(widgets, widget) {
+  addWidget(widgets: Widget[], widget: Widget) {
     const newWidget = Object.assign({}, widget, { id: uuidv4() });
     return [...widgets, newWidget];
   }
 
-  updateWidget(widgets, widget) {
-    return widgets.map((wdgt) =>
-      widget.id === wdgt.id ? Object.assign({}, widget) : wdgt
-    );
+  deleteWidget(widgets: Widget[], widget: Widget) {
+    return widgets.filter(_widget => widget.id !== _widget.id);
   }
 
-  deleteWidget(widgets, widget) {
-    return widgets.filter((wdgt) => widget.id !== wdgt.id);
+  getTotalPrice(widgets: Widget[]) {
+    return widgets.reduce((acc, curr) => acc + curr.price, 0);
   }
 }
