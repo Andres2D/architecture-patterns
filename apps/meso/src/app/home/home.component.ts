@@ -46,18 +46,21 @@ const initialClientsState: ClientState = {
 interface Project extends BaseEntity {
   title: string;
   description: string;
+  completed: boolean;
 };
 
 const artemis: Project = {
   id: '1',
   title: 'Artemis',
-  description: 'Artemis Rocket'
+  description: 'Artemis Rocket',
+  completed: false
 };
 
 const apollo: Project = {
   id: '2',
   title: 'Apollo',
-  description: 'Apollo Rocket'
+  description: 'Apollo Rocket',
+  completed: true
 };
 
 const projects: Project[] = [artemis, apollo];
@@ -65,20 +68,31 @@ const projects: Project[] = [artemis, apollo];
 const initialProject: Project = {
   id: null,
   title: '',
-  description: ''
+  description: '',
+  completed: false
 };
 
-interface ProjectState {
+interface ProjectsState {
   projects: Project[];
-  initialProject: Project;
-}
+  currentProject: Project;
+};
 
-const projectState = {
+const initialProjectState: ProjectsState = {
   projects,
-  initialProject
-}
+  currentProject: initialProject
+};
 
-const tango = projectState;
+interface AppState  {
+  clientState: ClientState;
+  projectState: ProjectsState;
+};
+
+const appState: AppState = {
+  clientState: initialClientsState,
+  projectState: initialProjectState
+};
+
+const tango = appState;
 
 @Component({
   selector: 'fem-home',
