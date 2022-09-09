@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 
 interface BaseEntity {
@@ -44,25 +45,24 @@ const initialClientsState: ClientState = {
 };
 
 class ClientStore {
-  clients: Client[];
-  currentClient: Client;
 
-  load(newClients: Client[]) {
-    this.clients = newClients;
+  state: ClientState;
+
+  constructor(state: ClientState) {
+    this.state = state;
   }
 
-  select(client: Client) {
-    this.currentClient = client;
+  getState() {
+    return this.state;
   }
 
-  create(newClient: Client) {
-    this.clients = [...this.clients, newClient];
+  select(key: string) {
+    return this.state[key];
   }
 }
 
-const clientStore = new ClientStore();
-clientStore.load(clients);
-clientStore.select(peter);
+const clientStore = new ClientStore(initialClientsState);
+const currentClient = clientStore.select('currentClient');
 
 
 interface Project extends BaseEntity {
@@ -114,7 +114,7 @@ const appState: AppState = {
   projectState: initialProjectState
 };
 
-const tango = clientStore;
+const tango = currentClient;
 
 @Component({
   selector: 'fem-home',
