@@ -43,7 +43,42 @@ const initialClientsState: ClientState = {
   currentClient: newClient
 };
 
-const tango = initialClientsState;
+interface Project extends BaseEntity {
+  title: string;
+  description: string;
+};
+
+const artemis: Project = {
+  id: '1',
+  title: 'Artemis',
+  description: 'Artemis Rocket'
+};
+
+const apollo: Project = {
+  id: '2',
+  title: 'Apollo',
+  description: 'Apollo Rocket'
+};
+
+const projects: Project[] = [artemis, apollo];
+
+const initialProject: Project = {
+  id: null,
+  title: '',
+  description: ''
+};
+
+interface ProjectState {
+  projects: Project[];
+  initialProject: Project;
+}
+
+const projectState = {
+  projects,
+  initialProject
+}
+
+const tango = projectState;
 
 @Component({
   selector: 'fem-home',
