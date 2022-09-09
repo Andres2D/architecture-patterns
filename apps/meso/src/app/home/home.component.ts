@@ -43,6 +43,28 @@ const initialClientsState: ClientState = {
   currentClient: newClient
 };
 
+class ClientStore {
+  clients: Client[];
+  currentClient: Client;
+
+  load(newClients: Client[]) {
+    this.clients = newClients;
+  }
+
+  select(client: Client) {
+    this.currentClient = client;
+  }
+
+  create(newClient: Client) {
+    this.clients = [...this.clients, newClient];
+  }
+}
+
+const clientStore = new ClientStore();
+clientStore.load(clients);
+clientStore.select(peter);
+
+
 interface Project extends BaseEntity {
   title: string;
   description: string;
@@ -92,7 +114,7 @@ const appState: AppState = {
   projectState: initialProjectState
 };
 
-const tango = appState;
+const tango = clientStore;
 
 @Component({
   selector: 'fem-home',
