@@ -181,34 +181,70 @@ const PROJECT_DELETE  = '[Project] Delete';
 const PROJECT_SELECT  = '[Project] Select';
 const PROJECT_CLEAR   = '[Project] Clear';
 
-const loadProjects = (state: ProjectsState, project: any) => {
-  console.log('Load project', project);
-  return state;
+const loadProjects = (state: ProjectsState, projects: any): ProjectsState => {
+  return {
+    projects,
+    currentProject: state.currentProject
+  };
 }
 
-const createProjects = (state: ProjectsState, project: any) => {
-  console.log('Create project', project);
-  return state;
+const createProjects = (state: ProjectsState, project: any): ProjectsState => {
+  return {
+    projects: [...state.projects, project],
+    currentProject: state.currentProject
+  };
 }
 
-const selectProjects = (state: ProjectsState, project: any) => {
-  console.log('Select project', project);
-  return state;
+const selectProjects = (state: ProjectsState, project: any): ProjectsState => {
+  return {
+    projects: state.projects,
+    currentProject: project
+  };
 }
 
-const updateProjects = (state: ProjectsState, project: any) => {
-  console.log('Update project', project);
-  return state;
+const updateProjects = (state: ProjectsState, project: any): ProjectsState => {
+  return {
+    projects: state.projects.map(p => {
+      return (p.id === project.id) ? Object.assign({}, project) : p;
+    }),
+    currentProject: state.currentProject
+  };
 }
 
-const deleteProjects = (state: ProjectsState, project: any) => {
-  console.log('Delete project', project);
-  return state;
+const deleteProjects = (state: ProjectsState, project: any): ProjectsState => {
+  return {
+    projects: state.projects.filter(p => p.id !== project.id),
+    currentProject: state.currentProject
+  };
 }
 
-const clearProjects = (state: ProjectsState, project: any) => {
-  console.log('Clear project', project);
-  return state;
+const clearProjects = (state: ProjectsState): ProjectsState => {
+  return {
+    projects: state.projects,
+    currentProject: null
+  }
+}
+
+const projectsReducer = (
+  state: ProjectsState = initialProjectState,
+  action: Action
+) => {
+  switch(action.type) {
+    case PROJECT_LOAD: 
+      return loadProjects(state, action.payload);
+    case PROJECT_SELECT: 
+      return selectProjects(state, action.payload);
+    case PROJECT_CREATE: 
+      return createProjects(state, action.payload);
+    case PROJECT_UPDATE: 
+      return updateProjects(state, action.payload);
+    case PROJECT_DELETE: 
+      return deleteProjects(state, action.payload);
+    case PROJECT_CLEAR: 
+      return clearProjects(state);
+    default:
+      return state;
+  }
 }
 
 class ProjectStore {
@@ -230,7 +266,7 @@ class ProjectStore {
 const projectStore = new ProjectStore(initialProjectState);
 const projectsList = projectStore.select('projects');
 
-const tango = projectsList;
+const tango = {};
 
 @Component({
   selector: 'fem-home',
